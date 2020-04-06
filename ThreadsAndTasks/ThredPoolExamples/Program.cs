@@ -24,6 +24,19 @@ namespace ThredPoolExamples
                 do {
                 } while (Console.ReadKey().Key != ConsoleKey.E);
             }
+
+            //Timer timer = null;
+            //try {
+            //    timer = new Timer(runThis, null, 3000, 1000)) {
+            //        Console.WriteLine(".... Wait for it...");
+            //        do {
+            //        } while (Console.ReadKey().Key != ConsoleKey.E);
+
+            //    }
+            //}finally{
+            //    timer.Dispose();    
+            //}
+
         }
 
         static void Ex06() {
