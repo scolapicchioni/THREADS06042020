@@ -24,11 +24,8 @@ namespace WindowsFormsApp1 {
             //interlocked
 
             int sum = 0;
-
             CountdownEvent countdown = new CountdownEvent(3);
-
             SynchronizationContext ctx = SynchronizationContext.Current;
-
             int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
             Label[] labels = new Label[] { label1,label2,label3 };
 
@@ -52,10 +49,8 @@ namespace WindowsFormsApp1 {
                 countdown.Wait();
                 ctx.Post(o => {
                     label4.Text = sum.ToString();
-                }, null);
-                
+                }, null); 
             });
-            Console.WriteLine($"The sum is {sum}");
         }
     }
 }

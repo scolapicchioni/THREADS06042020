@@ -57,6 +57,7 @@ namespace WpfApplication {
             SynchronizationContext mainSyncContext = SynchronizationContext.Current;
 
             void runThis(){
+                //SynchronizationContext SyncContextThred2 = SynchronizationContext.Current;
                 for (long i = 0; i < 10000000000; i++) {
 
                 }
@@ -66,6 +67,9 @@ namespace WpfApplication {
                     //we'running int the correct thread now!
                     lblMessage.Content = "Done.";
                 }, null);
+
+                //this 
+
             };
 
             lblMessage.Content = "Thinking (single Threaded)";
