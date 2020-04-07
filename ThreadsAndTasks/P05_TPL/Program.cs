@@ -12,19 +12,19 @@ namespace P05_TPL
             /*
              * https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/data-parallelism-task-parallel-library
              * http://www.albahari.com/threading/part5.aspx#_The_Parallel_Class
-             * 
-             * PFX provides a basic form of structured parallelism 
-             * via three static methods in the Parallel class:
-
-                Parallel.Invoke
-                Executes an array of delegates in parallel
-
-                Parallel.For
-                Performs the parallel equivalent of a C# for loop
-
-                Parallel.ForEach
-                Performs the parallel equivalent of a C# foreach loop
-
+             *                                                                                        T1
+             * PFX provides a basic form of structured parallelism                                    |
+             * via three static methods in the Parallel class:                                        |
+                                                                                                     FORK
+                Parallel.Invoke                                                                       ^
+                Executes an array of delegates in parallel                                           / \
+                                                                                                     |  |
+                Parallel.For                                                                        T2  T3
+                Performs the parallel equivalent of a C# for loop                                    \  /
+                                                                                                      V
+                Parallel.ForEach                                                                     JOIN 
+                Performs the parallel equivalent of a C# foreach loop                                 |
+                                                                                                      |
                 All three methods block until all work is complete. 
                 As with PLINQ, after an unhandled exception, 
                 remaining workers are stopped after their current iteration 

@@ -31,6 +31,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnAlexander = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -39,6 +40,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
             this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "5";
             // 
             // textBox2
             // 
@@ -46,6 +48,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 22);
             this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "3";
             // 
             // textBox3
             // 
@@ -53,6 +56,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 22);
             this.textBox3.TabIndex = 2;
+            this.textBox3.Text = "4";
             // 
             // label1
             // 
@@ -100,11 +104,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnAlexander
+            // 
+            this.btnAlexander.Location = new System.Drawing.Point(192, 281);
+            this.btnAlexander.Name = "btnAlexander";
+            this.btnAlexander.Size = new System.Drawing.Size(100, 23);
+            this.btnAlexander.TabIndex = 8;
+            this.btnAlexander.Text = "Alexander";
+            this.btnAlexander.UseVisualStyleBackColor = true;
+            this.btnAlexander.Click += new System.EventHandler(this.btnAlexander_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAlexander);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -130,6 +145,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAlexander;
     }
 }
 

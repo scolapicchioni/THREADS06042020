@@ -197,7 +197,7 @@ namespace P06_Tasks
                 }, baseValue));
             }
             //this does not block the current thread
-            var continuation = Task.WhenAll(tasks);
+            Task<int[]> continuation = Task.WhenAll(tasks);
 
             long sum = 0;
             //.Result may block the current thread if the result is not yet available

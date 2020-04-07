@@ -16,6 +16,7 @@ namespace WindowsFormsApp1 {
             InitializeComponent();
         }
 
+        #region Simo01
         private void button1_Click(object sender, EventArgs e)
         {
             //threadpool
@@ -52,5 +53,40 @@ namespace WindowsFormsApp1 {
                 }, null); 
             });
         }
+        #endregion
+
+        #region Alexander
+        private int _sumAlexander = 0;
+        private void btnAlexander_Click(object sender, EventArgs e)
+        {
+            _sumAlexander = 0;
+            SynchronizationContext maincontext = SynchronizationContext.Current;
+            CountdownEvent cd = new CountdownEvent(3);
+
+            runThread(maincontext, cd, label1, int.Parse(textBox1.Text));
+            runThread(maincontext, cd, label2, int.Parse(textBox2.Text));
+            runThread(maincontext, cd, label3, int.Parse(textBox3.Text));
+
+            ThreadPool.QueueUserWorkItem((object _) => {
+                cd.Wait();
+
+                maincontext.Post((object o)=> {
+                    label4.Text += $" {_sumAlexander}";
+                },null);
+            }, null);
+        }
+
+        private void runThread(SynchronizationContext ctx, CountdownEvent countdownEvent, Label lbl, int n) {
+            ThreadPool.QueueUserWorkItem((object _)=> {
+                int result = SlowMath.SlowSquare04(n);
+                Interlocked.Add(ref _sumAlexander, result);
+
+                ctx.Post((object o)=> {
+                    lbl.Text += $" {result}";
+                },null);
+                countdownEvent.Signal();
+            },null);
+        }
+        #endregion
     }
 }
