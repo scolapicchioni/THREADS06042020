@@ -198,7 +198,7 @@ namespace P06_Tasks
             }
             //this does not block the current thread
             Task<int[]> continuation = Task.WhenAll(tasks);
-
+            
             long sum = 0;
             //.Result may block the current thread if the result is not yet available
             for (int ctr = 0; ctr <= continuation.Result.Length - 1; ctr++) {
@@ -249,14 +249,14 @@ namespace P06_Tasks
             //and, by retrieving the value of the Task<TResult>.Result property, 
             //can use the output of the antecedent as input for the continuation.
 
-            Task<int> t1 = Task.Run(() => {
+            Task<string> t1 = Task.Run(() => {
                 Console.WriteLine($"t1 - ThreadId: {Thread.CurrentThread.ManagedThreadId}");
-                return 42;
+                return "42";
             });
 
             Task<int> t2 = t1.ContinueWith(t => {
                 Console.WriteLine($"t2 - received {t.Result} on ThreadId: {Thread.CurrentThread.ManagedThreadId}");
-                return t.Result + 1;
+                return int.Parse(t.Result);
             });
 
             Task<int> t3 = t2.ContinueWith(t => {
@@ -306,8 +306,7 @@ namespace P06_Tasks
              * the call in a try/catch statement.
              */
 
-            var task1 = Task.Run(() => { throw new ArgumentException("This exception is expected!"); });
-
+            Task task1 = Task.Run(() => { throw new ArgumentException("This exception is expected!"); });
             try {
                 task1.Wait();
             } catch (AggregateException ae) {
@@ -345,22 +344,28 @@ namespace P06_Tasks
             //by the System.Threading.Tasks.Task<TResult> 
             //class, which inherits from Task.
 
-            Task<int> taskA = Task.Run(() => {
+            Task<(int, string)> taskA = Task.Run(() => {
                 Console.WriteLine($"Hello from the task - ThreadId: {Thread.CurrentThread.ManagedThreadId}");
-                return 5;
+                return (5, "hi");
             });
-
+            
             //If the Result property is accessed 
             //before the computation finishes, 
             //the property blocks the calling thread 
             //until the value is available.
             Console.WriteLine(taskA.Result);
+
+
+            Task<string> taskB = Task.Factory.StartNew((bla) => "hi!", "haaaa");
         }
 
         static void Ex03() {
             //You can also use the Task.Factory.StartNew method 
             //to create and start a task in one operation.
             Task taskA = Task.Factory.StartNew(() => Console.WriteLine($"Hello from the task - ThreadId: {Thread.CurrentThread.ManagedThreadId}"));
+
+            
+
         }
         static void Ex02() {
             //You can also use the Task.Run methods 

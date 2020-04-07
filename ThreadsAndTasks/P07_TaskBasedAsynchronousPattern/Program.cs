@@ -9,10 +9,11 @@ namespace P07_TaskBasedAsynchronousPattern
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
 
+            await Ex06();
             Ex18();
             Console.WriteLine("Press Enter To Exit!");
             Console.ReadLine();
@@ -310,7 +311,7 @@ namespace P07_TaskBasedAsynchronousPattern
             Console.WriteLine($"in the meantime I'm free to continue on Thread {Thread.CurrentThread.ManagedThreadId}");
         }
 
-        static void Ex06() {
+        static async Task Ex06() {
             /* Starting with .NET Framework 4.5, 
              * any method that is attributed with the async keyword 
              * is considered an asynchronous method, and the C# compiler 
@@ -337,7 +338,13 @@ namespace P07_TaskBasedAsynchronousPattern
 
             funcAsync().ContinueWith(t => Console.WriteLine($"funcAsync is done on Thread {Thread.CurrentThread.ManagedThreadId}"));
 
-            funcAsync2().ContinueWith(t => Console.WriteLine($"funcAsync2 is done with {t.Result} on Thread {Thread.CurrentThread.ManagedThreadId}"));
+            Task<int> t2 = funcAsync2();
+
+            //.ContinueWith(t => Console.WriteLine($"funcAsync2 is done with {t.Result} on Thread {Thread.CurrentThread.ManagedThreadId}"));
+
+            int r2 = await funcAsync2();
+            /////callback
+
             Console.WriteLine($"in the meantime I'm going on on Thread {Thread.CurrentThread.ManagedThreadId}");
         }
 
@@ -478,6 +485,26 @@ namespace P07_TaskBasedAsynchronousPattern
             calculateSlowAsync(10).ContinueWith(t => Console.WriteLine($"done with a result of {t.Result} on Thread {Thread.CurrentThread.ManagedThreadId}"));
 
             Console.WriteLine($"in the meantime I'm free to go on on Thread {Thread.CurrentThread.ManagedThreadId}");
+
+
+            ////this function is very slow
+            //void verySlowAction(int input)
+            //{
+            //    for (long i = 0; i < 1000000000 * input; i++) { }
+            //    Console.WriteLine("DONE!");
+            //};
+
+            ////let's create the async version
+            //Task verySlowActionAsync(int input)
+            //{
+            //    //we could do some synchronous work,
+            //    //such as checking if the input is valid,
+            //    //then we start the async operation and return 
+            //    //the running task
+            //    return Task.Run(() => {
+            //        return verySlowAction(input);
+            //    });
+            //};
         }
     }
 }
