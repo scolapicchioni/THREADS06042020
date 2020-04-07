@@ -67,42 +67,38 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(363, 67);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 17);
+            this.label1.Size = new System.Drawing.Size(0, 17);
             this.label1.TabIndex = 3;
-            this.label1.Text = "label1";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(366, 121);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 17);
+            this.label2.Size = new System.Drawing.Size(0, 17);
             this.label2.TabIndex = 4;
-            this.label2.Text = "label2";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(366, 177);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.Size = new System.Drawing.Size(0, 17);
             this.label3.TabIndex = 5;
-            this.label3.Text = "label3";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(369, 240);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 17);
+            this.label4.Size = new System.Drawing.Size(0, 17);
             this.label4.TabIndex = 6;
-            this.label4.Text = "label4";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(71, 240);
+            this.button1.Location = new System.Drawing.Point(484, 67);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
+            this.button1.Size = new System.Drawing.Size(114, 23);
             this.button1.TabIndex = 7;
             this.button1.Text = "ThreadPool";
             this.button1.UseVisualStyleBackColor = true;
@@ -110,7 +106,7 @@
             // 
             // btnAlexander
             // 
-            this.btnAlexander.Location = new System.Drawing.Point(192, 240);
+            this.btnAlexander.Location = new System.Drawing.Point(626, 67);
             this.btnAlexander.Name = "btnAlexander";
             this.btnAlexander.Size = new System.Drawing.Size(100, 23);
             this.btnAlexander.TabIndex = 8;
@@ -120,9 +116,9 @@
             // 
             // btnParallel
             // 
-            this.btnParallel.Location = new System.Drawing.Point(71, 284);
+            this.btnParallel.Location = new System.Drawing.Point(484, 111);
             this.btnParallel.Name = "btnParallel";
-            this.btnParallel.Size = new System.Drawing.Size(100, 23);
+            this.btnParallel.Size = new System.Drawing.Size(114, 23);
             this.btnParallel.TabIndex = 9;
             this.btnParallel.Text = "Parallel";
             this.btnParallel.UseVisualStyleBackColor = true;
@@ -130,9 +126,9 @@
             // 
             // btnTasks
             // 
-            this.btnTasks.Location = new System.Drawing.Point(71, 326);
+            this.btnTasks.Location = new System.Drawing.Point(484, 153);
             this.btnTasks.Name = "btnTasks";
-            this.btnTasks.Size = new System.Drawing.Size(100, 23);
+            this.btnTasks.Size = new System.Drawing.Size(114, 23);
             this.btnTasks.TabIndex = 10;
             this.btnTasks.Text = "Tasks";
             this.btnTasks.UseVisualStyleBackColor = true;
@@ -140,7 +136,7 @@
             // 
             // btnAsyncAwait02
             // 
-            this.btnAsyncAwait02.Location = new System.Drawing.Point(71, 415);
+            this.btnAsyncAwait02.Location = new System.Drawing.Point(484, 242);
             this.btnAsyncAwait02.Name = "btnAsyncAwait02";
             this.btnAsyncAwait02.Size = new System.Drawing.Size(114, 23);
             this.btnAsyncAwait02.TabIndex = 11;
@@ -150,7 +146,7 @@
             // 
             // btnAsyncAwait01
             // 
-            this.btnAsyncAwait01.Location = new System.Drawing.Point(71, 370);
+            this.btnAsyncAwait01.Location = new System.Drawing.Point(484, 197);
             this.btnAsyncAwait01.Name = "btnAsyncAwait01";
             this.btnAsyncAwait01.Size = new System.Drawing.Size(114, 23);
             this.btnAsyncAwait01.TabIndex = 12;

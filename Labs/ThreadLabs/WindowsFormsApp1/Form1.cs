@@ -141,7 +141,7 @@ namespace WindowsFormsApp1 {
 
             // We're going to have some fun with LINQ 
             // to invoke our two methods SlowSquareAsync and waitAndPrint
-            // (we could use a foreach or a for, but why not LINQ?)
+            // (we could use a loop, but why not LINQ?)
 
             // Let's go!
 
