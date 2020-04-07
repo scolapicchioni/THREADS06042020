@@ -32,6 +32,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.btnAlexander = new System.Windows.Forms.Button();
+            this.btnParallel = new System.Windows.Forms.Button();
+            this.btnTasks = new System.Windows.Forms.Button();
+            this.btnAsyncAwait02 = new System.Windows.Forms.Button();
+            this.btnAsyncAwait01 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -96,17 +100,17 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(192, 240);
+            this.button1.Location = new System.Drawing.Point(71, 240);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 23);
             this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
+            this.button1.Text = "ThreadPool";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnAlexander
             // 
-            this.btnAlexander.Location = new System.Drawing.Point(192, 281);
+            this.btnAlexander.Location = new System.Drawing.Point(192, 240);
             this.btnAlexander.Name = "btnAlexander";
             this.btnAlexander.Size = new System.Drawing.Size(100, 23);
             this.btnAlexander.TabIndex = 8;
@@ -114,11 +118,55 @@
             this.btnAlexander.UseVisualStyleBackColor = true;
             this.btnAlexander.Click += new System.EventHandler(this.btnAlexander_Click);
             // 
+            // btnParallel
+            // 
+            this.btnParallel.Location = new System.Drawing.Point(71, 284);
+            this.btnParallel.Name = "btnParallel";
+            this.btnParallel.Size = new System.Drawing.Size(100, 23);
+            this.btnParallel.TabIndex = 9;
+            this.btnParallel.Text = "Parallel";
+            this.btnParallel.UseVisualStyleBackColor = true;
+            this.btnParallel.Click += new System.EventHandler(this.btnParallel_Click);
+            // 
+            // btnTasks
+            // 
+            this.btnTasks.Location = new System.Drawing.Point(71, 326);
+            this.btnTasks.Name = "btnTasks";
+            this.btnTasks.Size = new System.Drawing.Size(100, 23);
+            this.btnTasks.TabIndex = 10;
+            this.btnTasks.Text = "Tasks";
+            this.btnTasks.UseVisualStyleBackColor = true;
+            this.btnTasks.Click += new System.EventHandler(this.btnTasks_Click);
+            // 
+            // btnAsyncAwait02
+            // 
+            this.btnAsyncAwait02.Location = new System.Drawing.Point(71, 415);
+            this.btnAsyncAwait02.Name = "btnAsyncAwait02";
+            this.btnAsyncAwait02.Size = new System.Drawing.Size(114, 23);
+            this.btnAsyncAwait02.TabIndex = 11;
+            this.btnAsyncAwait02.Text = "async await 2";
+            this.btnAsyncAwait02.UseVisualStyleBackColor = true;
+            this.btnAsyncAwait02.Click += new System.EventHandler(this.btnAsyncAwait02_Click);
+            // 
+            // btnAsyncAwait01
+            // 
+            this.btnAsyncAwait01.Location = new System.Drawing.Point(71, 370);
+            this.btnAsyncAwait01.Name = "btnAsyncAwait01";
+            this.btnAsyncAwait01.Size = new System.Drawing.Size(114, 23);
+            this.btnAsyncAwait01.TabIndex = 12;
+            this.btnAsyncAwait01.Text = "async await 1";
+            this.btnAsyncAwait01.UseVisualStyleBackColor = true;
+            this.btnAsyncAwait01.Click += new System.EventHandler(this.btnAsyncAwait01_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnAsyncAwait01);
+            this.Controls.Add(this.btnAsyncAwait02);
+            this.Controls.Add(this.btnTasks);
+            this.Controls.Add(this.btnParallel);
             this.Controls.Add(this.btnAlexander);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
@@ -146,6 +194,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnAlexander;
+        private System.Windows.Forms.Button btnParallel;
+        private System.Windows.Forms.Button btnTasks;
+        private System.Windows.Forms.Button btnAsyncAwait02;
+        private System.Windows.Forms.Button btnAsyncAwait01;
     }
 }
 

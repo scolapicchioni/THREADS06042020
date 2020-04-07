@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SlowLibrary {
     public class SlowMath {
@@ -33,5 +34,11 @@ namespace SlowLibrary {
             }
             return n * n;
         }
+
+        public static Task<int> SlowSquareAsync(int n)
+        {
+            return Task.Run(()=>SlowSquare04(n));
+        }
+
     }
 }
