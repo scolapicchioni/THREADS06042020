@@ -8,7 +8,23 @@ namespace ThredPoolExamples
     {
         static void Main(string[] args)
         {
-            Ex07();
+            int print(int input) {
+                Console.WriteLine($"\tManagedThreadId: {Thread.CurrentThread.ManagedThreadId} - input: {input}");
+                return input;
+            }
+
+            var myList = Enumerable.Range(0, 100);
+
+
+
+            var output = myList.Select(print);
+
+            foreach (var item in output)
+            {
+                Console.WriteLine($"foreach: ManagedThreadId: {Thread.CurrentThread.ManagedThreadId} - item: {item}");
+            }
+
+            
             Console.WriteLine("Press Enter to quit...");
             Console.ReadLine();
         }

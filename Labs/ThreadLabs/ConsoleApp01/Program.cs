@@ -4,9 +4,15 @@ using SlowLibrary;
 
 namespace ConsoleApp01 {
     class Program {
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
+            Ex01();
+        }
+
+        private static void Ex08()
+        {
             int sum = 0;
-            
+
             EventWaitHandle[] events = new EventWaitHandle[] {
                 new AutoResetEvent(false),
                 new AutoResetEvent(false),
@@ -15,10 +21,12 @@ namespace ConsoleApp01 {
 
             int[] values = new int[] { 5, 3, 4 };
 
-            for (int i = 0; i < 3; i++) {
-                new Thread((myI) => {
+            for (int i = 0; i < 3; i++)
+            {
+                new Thread((myI) =>
+                {
                     int result = SlowMath.SlowSquare04(values[(int)myI]);
-                    Interlocked.Add(ref sum , result);
+                    Interlocked.Add(ref sum, result);
                     Console.WriteLine(result);
                     events[(int)myI].Set();
                 }).Start(i);
@@ -154,18 +162,18 @@ namespace ConsoleApp01 {
         }
 
         private static void Ex01() {
-            SlowLibrary.SlowMath sm = new SlowLibrary.SlowMath();
+            SlowMath sm = new SlowMath();
+            sm.SlowSquare01(4);
             sm.SlowSquare01(5);
-            sm.SlowSquare01(6);
-            sm.SlowSquare01(7);
+            sm.SlowSquare01(3);
 
             Thread t1 = new Thread(sm.SlowSquare01);
             Thread t2 = new Thread(sm.SlowSquare01);
             Thread t3 = new Thread(sm.SlowSquare01);
 
-            t1.Start();
-            t2.Start();
-            t3.Start();
+            t1.Start(4);
+            t2.Start(5);
+            t3.Start(3);
         }
     }
 }

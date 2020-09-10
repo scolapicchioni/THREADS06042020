@@ -564,24 +564,77 @@ namespace P01_Threads
 
         }
 
-        static void Ex10() {
+        static void Ex10c() {
+            //with the TryEnter we continue after a while 
+            //if we didn't get a lock on time
+            bool done = false;
+            object lockOnDone = new object();
+
+            void doYourThing() {
+
+                try {
+                    bool lockTaken = Monitor.TryEnter(lockOnDone);
+                    //Am I here because I got the lock?
+                    //Maybe, but maybe not...
+                    if (lockTaken) { //let me check
+                        if (!done) {
+                            Console.WriteLine("done");
+                            done = true;
+                        }
+                    } else { 
+                        //so we didn't get the lock.. now what?
+                        //up to you to decide....
+                        //for example, you could return a boolean
+                        //whether indicate that the operation was 
+                        //completed successfully, so that the 
+                        //caller can eventually try again later.
+                        //or you could try yourself once again...
+                        //maybe try 3 times and then return false?
+                        //you can decide your strategy
+                    }
+                } finally {
+                    Monitor.Exit(lockOnDone);
+                }
+
+            };
+
+            new Thread(doYourThing).Start();
+            new Thread(doYourThing).Start();
+
+        }
+
+        static void Ex10b() {
+            //lock keyword is equivalent to the following code 
+            //(more or less)
+            bool done = false;
+            object lockOnDone = new object();
+
+            void doYourThing() {
+
+                try {
+                    Monitor.Enter(lockOnDone);
+                    if (!done) {
+                        Console.WriteLine("done");
+                        done = true;
+                    }
+                } finally {
+                    Monitor.Exit(lockOnDone);
+                }
+
+            };
+
+            new Thread(doYourThing).Start();
+            new Thread(doYourThing).Start();
+
+        }
+
+        static void Ex10a() {
             //with locks we can avoid some problems....
             //(more on this later...)
             bool done = false;
             object lockOnDone = new object();
 
             void doYourThing() {
-
-                //try {
-                //    Monitor.Enter(lockOnDone);
-                //    if (!done) {
-                //        Console.WriteLine("done");
-                //        done = true;
-                //    }
-                //} finally {
-                //    Monitor.Exit(lockOnDone);
-                //}
-
                 lock (lockOnDone)
                 {
                     if (!done) {
