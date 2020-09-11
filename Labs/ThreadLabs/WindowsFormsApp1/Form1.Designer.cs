@@ -31,11 +31,14 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.btnAlexander = new System.Windows.Forms.Button();
-            this.btnParallel = new System.Windows.Forms.Button();
+            this.btnParallelFor = new System.Windows.Forms.Button();
             this.btnTasks = new System.Windows.Forms.Button();
             this.btnAsyncAwait02 = new System.Windows.Forms.Button();
             this.btnAsyncAwait01 = new System.Windows.Forms.Button();
+            this.btnParallelInvoke = new System.Windows.Forms.Button();
+            this.btnTasksResult = new System.Windows.Forms.Button();
+            this.btnTasksContinueWith = new System.Windows.Forms.Button();
+            this.btnContinueWithFromCurrentyncContext = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -104,29 +107,19 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnAlexander
+            // btnParallelFor
             // 
-            this.btnAlexander.Location = new System.Drawing.Point(626, 67);
-            this.btnAlexander.Name = "btnAlexander";
-            this.btnAlexander.Size = new System.Drawing.Size(100, 23);
-            this.btnAlexander.TabIndex = 8;
-            this.btnAlexander.Text = "Alexander";
-            this.btnAlexander.UseVisualStyleBackColor = true;
-            this.btnAlexander.Click += new System.EventHandler(this.btnAlexander_Click);
-            // 
-            // btnParallel
-            // 
-            this.btnParallel.Location = new System.Drawing.Point(484, 111);
-            this.btnParallel.Name = "btnParallel";
-            this.btnParallel.Size = new System.Drawing.Size(114, 23);
-            this.btnParallel.TabIndex = 9;
-            this.btnParallel.Text = "Parallel";
-            this.btnParallel.UseVisualStyleBackColor = true;
-            this.btnParallel.Click += new System.EventHandler(this.btnParallel_Click);
+            this.btnParallelFor.Location = new System.Drawing.Point(484, 150);
+            this.btnParallelFor.Name = "btnParallelFor";
+            this.btnParallelFor.Size = new System.Drawing.Size(114, 23);
+            this.btnParallelFor.TabIndex = 9;
+            this.btnParallelFor.Text = "Parallel For";
+            this.btnParallelFor.UseVisualStyleBackColor = true;
+            this.btnParallelFor.Click += new System.EventHandler(this.btnParallelFor_Click);
             // 
             // btnTasks
             // 
-            this.btnTasks.Location = new System.Drawing.Point(484, 153);
+            this.btnTasks.Location = new System.Drawing.Point(484, 193);
             this.btnTasks.Name = "btnTasks";
             this.btnTasks.Size = new System.Drawing.Size(114, 23);
             this.btnTasks.TabIndex = 10;
@@ -136,7 +129,7 @@
             // 
             // btnAsyncAwait02
             // 
-            this.btnAsyncAwait02.Location = new System.Drawing.Point(484, 242);
+            this.btnAsyncAwait02.Location = new System.Drawing.Point(484, 282);
             this.btnAsyncAwait02.Name = "btnAsyncAwait02";
             this.btnAsyncAwait02.Size = new System.Drawing.Size(114, 23);
             this.btnAsyncAwait02.TabIndex = 11;
@@ -146,7 +139,7 @@
             // 
             // btnAsyncAwait01
             // 
-            this.btnAsyncAwait01.Location = new System.Drawing.Point(484, 197);
+            this.btnAsyncAwait01.Location = new System.Drawing.Point(484, 237);
             this.btnAsyncAwait01.Name = "btnAsyncAwait01";
             this.btnAsyncAwait01.Size = new System.Drawing.Size(114, 23);
             this.btnAsyncAwait01.TabIndex = 12;
@@ -154,16 +147,59 @@
             this.btnAsyncAwait01.UseVisualStyleBackColor = true;
             this.btnAsyncAwait01.Click += new System.EventHandler(this.btnAsyncAwait01_Click);
             // 
+            // btnParallelInvoke
+            // 
+            this.btnParallelInvoke.Location = new System.Drawing.Point(484, 106);
+            this.btnParallelInvoke.Name = "btnParallelInvoke";
+            this.btnParallelInvoke.Size = new System.Drawing.Size(114, 23);
+            this.btnParallelInvoke.TabIndex = 13;
+            this.btnParallelInvoke.Text = "Parallel Invoke";
+            this.btnParallelInvoke.UseVisualStyleBackColor = true;
+            this.btnParallelInvoke.Click += new System.EventHandler(this.btnParallelInvoke_Click);
+            // 
+            // btnTasksResult
+            // 
+            this.btnTasksResult.Location = new System.Drawing.Point(604, 193);
+            this.btnTasksResult.Name = "btnTasksResult";
+            this.btnTasksResult.Size = new System.Drawing.Size(110, 23);
+            this.btnTasksResult.TabIndex = 14;
+            this.btnTasksResult.Text = "Tasks Result";
+            this.btnTasksResult.UseVisualStyleBackColor = true;
+            this.btnTasksResult.Click += new System.EventHandler(this.btnTasksResult_Click);
+            // 
+            // btnTasksContinueWith
+            // 
+            this.btnTasksContinueWith.Location = new System.Drawing.Point(720, 193);
+            this.btnTasksContinueWith.Name = "btnTasksContinueWith";
+            this.btnTasksContinueWith.Size = new System.Drawing.Size(154, 23);
+            this.btnTasksContinueWith.TabIndex = 15;
+            this.btnTasksContinueWith.Text = "Tasks ContinueWith";
+            this.btnTasksContinueWith.UseVisualStyleBackColor = true;
+            this.btnTasksContinueWith.Click += new System.EventHandler(this.btnTasksContinueWith_Click);
+            // 
+            // btnContinueWithFromCurrentyncContext
+            // 
+            this.btnContinueWithFromCurrentyncContext.Location = new System.Drawing.Point(880, 193);
+            this.btnContinueWithFromCurrentyncContext.Name = "btnContinueWithFromCurrentyncContext";
+            this.btnContinueWithFromCurrentyncContext.Size = new System.Drawing.Size(239, 23);
+            this.btnContinueWithFromCurrentyncContext.TabIndex = 16;
+            this.btnContinueWithFromCurrentyncContext.Text = "Tasks ContinueWith SyncContext";
+            this.btnContinueWithFromCurrentyncContext.UseVisualStyleBackColor = true;
+            this.btnContinueWithFromCurrentyncContext.Click += new System.EventHandler(this.btnContinueWithFromCurrentyncContext_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1148, 450);
+            this.Controls.Add(this.btnContinueWithFromCurrentyncContext);
+            this.Controls.Add(this.btnTasksContinueWith);
+            this.Controls.Add(this.btnTasksResult);
+            this.Controls.Add(this.btnParallelInvoke);
             this.Controls.Add(this.btnAsyncAwait01);
             this.Controls.Add(this.btnAsyncAwait02);
             this.Controls.Add(this.btnTasks);
-            this.Controls.Add(this.btnParallel);
-            this.Controls.Add(this.btnAlexander);
+            this.Controls.Add(this.btnParallelFor);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -189,11 +225,14 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button btnAlexander;
-        private System.Windows.Forms.Button btnParallel;
+        private System.Windows.Forms.Button btnParallelFor;
         private System.Windows.Forms.Button btnTasks;
         private System.Windows.Forms.Button btnAsyncAwait02;
         private System.Windows.Forms.Button btnAsyncAwait01;
+        private System.Windows.Forms.Button btnParallelInvoke;
+        private System.Windows.Forms.Button btnTasksResult;
+        private System.Windows.Forms.Button btnTasksContinueWith;
+        private System.Windows.Forms.Button btnContinueWithFromCurrentyncContext;
     }
 }
 

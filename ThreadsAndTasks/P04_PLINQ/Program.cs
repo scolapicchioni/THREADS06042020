@@ -87,8 +87,9 @@ namespace P04_PLINQ
                 foreach (var item in query) {
                     Console.WriteLine($"\tforeach - Item:{item} - ThreadId {Thread.CurrentThread.ManagedThreadId} - TaskId: {Task.CurrentId}");
                 }
-            } catch (Exception e) { //we get an AggregateException
+            } catch (AggregateException e) { //we get an AggregateException
                 Console.WriteLine($"caught {e}");
+                
             }
 
             try {

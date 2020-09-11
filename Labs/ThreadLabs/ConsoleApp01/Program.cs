@@ -6,18 +6,14 @@ namespace ConsoleApp01 {
     class Program {
         static void Main(string[] args)
         {
-            Ex01();
+            Ex08();
         }
 
         private static void Ex08()
         {
             int sum = 0;
 
-            EventWaitHandle[] events = new EventWaitHandle[] {
-                new AutoResetEvent(false),
-                new AutoResetEvent(false),
-                new AutoResetEvent(false)
-            };
+            CountdownEvent evt = new CountdownEvent(3);
 
             int[] values = new int[] { 5, 3, 4 };
 
@@ -28,18 +24,17 @@ namespace ConsoleApp01 {
                     int result = SlowMath.SlowSquare04(values[(int)myI]);
                     Interlocked.Add(ref sum, result);
                     Console.WriteLine(result);
-                    events[(int)myI].Set();
+                    evt.Signal();
                 }).Start(i);
             }
 
-            EventWaitHandle.WaitAll(events);
+            evt.Wait();
             Console.WriteLine($"The sum is {sum}");
         }
 
         private static void Ex07() {
             int sum = 0;
-            object lockOnSum = new object();
-
+            
             EventWaitHandle[] events = new EventWaitHandle[] {
                 new AutoResetEvent(false),
                 new AutoResetEvent(false),
@@ -51,9 +46,7 @@ namespace ConsoleApp01 {
             for (int i = 0; i < 3; i++) {
                 new Thread((myI) => {
                     int result = SlowMath.SlowSquare04(values[(int)myI]);
-                    lock (lockOnSum) {
-                        sum += result;
-                    }
+                    Interlocked.Add(ref sum, result);
                     Console.WriteLine(result);
                     events[(int)myI].Set();
                 }).Start(i);
@@ -62,11 +55,10 @@ namespace ConsoleApp01 {
             EventWaitHandle.WaitAll(events);
             Console.WriteLine($"The sum is {sum}");
         }
-
+        
         private static void Ex06() {
             int sum = 0;
-            object lockOnSum = new object();
-
+            
             EventWaitHandle[] events = new EventWaitHandle[] {
                 new AutoResetEvent(false),
                 new AutoResetEvent(false),
@@ -75,27 +67,21 @@ namespace ConsoleApp01 {
 
             new Thread(() => {
                 int result = SlowMath.SlowSquare04(5);
-                lock (lockOnSum) {
-                    sum += result;
-                }
+                Interlocked.Add(ref sum, result);
                 Console.WriteLine(result);
                 events[0].Set();
             }).Start();
 
             new Thread(() => {
                 int result = SlowMath.SlowSquare04(3);
-                lock (lockOnSum) {
-                    sum += result;
-                }
+                Interlocked.Add(ref sum, result);
                 Console.WriteLine(result);
                 events[1].Set();
             }).Start();
 
             new Thread(() => {
                 int result = SlowMath.SlowSquare04(4);
-                lock (lockOnSum) {
-                    sum += result;
-                }
+                Interlocked.Add(ref sum, result);
                 Console.WriteLine(result);
                 events[2].Set();
             }).Start();
@@ -147,6 +133,14 @@ namespace ConsoleApp01 {
                 int result = SlowMath.SlowSquare04(4);
                 Console.WriteLine(result);
             }).Start();
+        }
+
+        private static void Ex03WithSumUpdate()
+        {
+            SlowMath sm = new SlowMath();
+            new Thread(() => sm.SlowSquare03WithSumUpdate(3)).Start();
+            new Thread(() => sm.SlowSquare03WithSumUpdate(2)).Start();
+            new Thread(() => sm.SlowSquare03WithSumUpdate(4)).Start();
         }
 
         private static void Ex03() {

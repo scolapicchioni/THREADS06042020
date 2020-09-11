@@ -8,6 +8,8 @@
 ## Parallel Programming
 - https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/index
 - https://msdn.microsoft.com/en-us/library/ff963553.aspx
+- [Task Parallel Library](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl)
+- [Parallel LINQ](https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/introduction-to-plinq)
 
 
 ## Asynchronous Programming

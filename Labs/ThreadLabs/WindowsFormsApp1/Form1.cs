@@ -56,33 +56,7 @@ namespace WindowsFormsApp1 {
 
         private void btnParallel_Click(object sender, EventArgs e)
         {
-            //threadpool
-            //Parallel.For
-            //synchronizationcontext
-            //interlocked
 
-            int sum = 0;
-            SynchronizationContext ctx = SynchronizationContext.Current;
-            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
-            Label[] labels = new Label[] { label1, label2, label3 };
-
-            ThreadPool.QueueUserWorkItem(_ => {
-                
-                Parallel.For(0, 3, (myI) => {
-                    int index = (int)myI;
-                    int result = SlowMath.SlowSquare04(values[index]);
-                    Interlocked.Add(ref sum, result);
-
-                    ctx.Post(res => {
-                        labels[index].Text = res.ToString();
-                    }, result);
-
-                });
-
-                ctx.Post(o => {
-                    label4.Text = sum.ToString();
-                }, null);
-            },null);
         }
 
         private void btnTasks_Click(object sender, EventArgs e)
@@ -185,43 +159,178 @@ namespace WindowsFormsApp1 {
 
         #endregion
 
-        #region Alexander
-        private int _sumAlexander = 0;
-        private void btnAlexander_Click(object sender, EventArgs e)
-        {
-            _sumAlexander = 0;
-            SynchronizationContext maincontext = SynchronizationContext.Current;
-            CountdownEvent cd = new CountdownEvent(3);
-
-            runThread(maincontext, cd, label1, int.Parse(textBox1.Text));
-            runThread(maincontext, cd, label2, int.Parse(textBox2.Text));
-            runThread(maincontext, cd, label3, int.Parse(textBox3.Text));
-
-            ThreadPool.QueueUserWorkItem((object _) => {
-                cd.Wait();
-
-                maincontext.Post((object o)=> {
-                    label4.Text += $" {_sumAlexander}";
-                },null);
-            }, null);
-        }
-
-        private void runThread(SynchronizationContext ctx, CountdownEvent countdownEvent, Label lbl, int n) {
-            ThreadPool.QueueUserWorkItem((object _)=> {
-                int result = SlowMath.SlowSquare04(n);
-                Interlocked.Add(ref _sumAlexander, result);
-
-                ctx.Post((object o)=> {
-                    lbl.Text += $" {result}";
-                },null);
-                countdownEvent.Signal();
-            },null);
-        }
-
-
-
-        #endregion
-
         
+
+        private void btnParallelFor_Click(object sender, EventArgs e)
+        {
+            //threadpool
+            //parallel for
+            //synchronizationcontext
+            //interlocked
+
+            int sum = 0;
+            SynchronizationContext ctx = SynchronizationContext.Current;
+            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
+            Label[] labels = new Label[] { label1, label2, label3 };
+
+            ThreadPool.QueueUserWorkItem(_ => {
+                Parallel.For(0,3,(i) => {
+                    int result = SlowMath.SlowSquare04(values[i]);
+                    Interlocked.Add(ref sum, result);
+
+                    ctx.Post(res => {
+                        labels[i].Text = res.ToString();
+                    }, result);
+                });
+
+                ctx.Post(o => {
+                    label4.Text = sum.ToString();
+                }, null);
+            });
+        }
+
+        private void btnParallelInvoke_Click(object sender, EventArgs e)
+        {
+            //threadpool
+            //parallel invoke
+            //synchronizationcontext
+            //interlocked
+
+            int sum = 0;
+            SynchronizationContext ctx = SynchronizationContext.Current;
+            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
+            Label[] labels = new Label[] { label1, label2, label3 };
+
+            ThreadPool.QueueUserWorkItem(_ => {
+                Parallel.Invoke(() => {
+                    int result = SlowMath.SlowSquare04(values[0]);
+                    Interlocked.Add(ref sum, result);
+
+                    ctx.Post(res => {
+                        labels[0].Text = res.ToString();
+                    }, result);
+                },
+                () => {
+                    int result = SlowMath.SlowSquare04(values[1]);
+                    Interlocked.Add(ref sum, result);
+
+                    ctx.Post(res => {
+                        labels[1].Text = res.ToString();
+                    }, result);
+                },
+                () => {
+                    int result = SlowMath.SlowSquare04(values[2]);
+                    Interlocked.Add(ref sum, result);
+
+                    ctx.Post(res => {
+                        labels[2].Text = res.ToString();
+                    }, result);
+                });
+
+                ctx.Post(o => {
+                    label4.Text = sum.ToString();
+                }, null);
+            });
+        }
+
+        private void btnTasksResult_Click(object sender, EventArgs e)
+        {
+            //Tasks
+            //synchronizationcontext
+            //interlocked
+
+            int sum = 0;
+            SynchronizationContext ctx = SynchronizationContext.Current;
+            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
+            Label[] labels = new Label[] { label1, label2, label3 };
+            Task<int>[] tasks = new Task<int>[3];
+            Task.Run(() => {
+                for (int i = 0; i < 3; i++)
+                {
+                    tasks[i] = Task.Factory.StartNew(local_i =>
+                    {
+                        int result = SlowMath.SlowSquare04(values[(int)local_i]);
+                        ctx.Post(res => {
+                            labels[(int)local_i].Text = res.ToString();
+                        }, result);
+                        return result;
+                    },i);
+                }
+                sum = tasks[0].Result + tasks[1].Result + tasks[2].Result;
+                ctx.Post(o => {
+                    label4.Text = sum.ToString();
+                }, null);
+            });
+        }
+
+        private void btnTasksContinueWith_Click(object sender, EventArgs e)
+        {
+            //Tasks.ContinueWith
+            //synchronizationcontext
+
+            int sum = 0;
+            SynchronizationContext ctx = SynchronizationContext.Current;
+            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
+            Label[] labels = new Label[] { label1, label2, label3 };
+            Task<(int index,int result)>[] tasks = new Task<(int index,int result)>[3];
+            
+            for (int i = 0; i < 3; i++)
+            {
+                tasks[i] = Task.Factory.StartNew(local_i =>
+                {
+                    int result = SlowMath.SlowSquare04(values[(int)local_i]);
+                    return (index: (int)local_i, result);
+                }, i);
+
+                tasks[i].ContinueWith(t => {
+                    ctx.Post(res => {
+                        (var index, var result) = (ValueTuple<int,int>)res;
+                        labels[index].Text = result.ToString();
+                    }, t.Result);
+                });
+
+            }
+            Task.WhenAll(tasks).ContinueWith(allTasks => {
+                sum = allTasks.Result[0].result + allTasks.Result[1].result + allTasks.Result[2].result;
+                ctx.Post(o => {
+                    label4.Text = sum.ToString();
+                }, null);
+            });
+            
+            
+            
+        }
+
+        private void btnContinueWithFromCurrentyncContext_Click(object sender, EventArgs e)
+        {
+            //Tasks.ContinueWith FromCurrentSynchronizationContext
+            
+            int[] values = new int[] { int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text) };
+            Label[] labels = new Label[] { label1, label2, label3 };
+            Task<(int index, int result)>[] tasks = new Task<(int index, int result)>[3];
+
+            for (int i = 0; i < 3; i++)
+            {
+                tasks[i] = Task.Factory.StartNew(local_i => {
+                    int result = SlowMath.SlowSquare04(values[(int)local_i]);
+                    return (index: (int)local_i, result);
+                }, i);
+
+                tasks[i].ContinueWith(t => labels[t.Result.index].Text = t.Result.result.ToString() ,TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            Task.WhenAll(tasks).ContinueWith(allTasks => label4.Text = allTasks.Result.Sum(r => r.result).ToString() , TaskScheduler.FromCurrentSynchronizationContext());
+            
+            //or:
+
+            Task<int> t1 = Task.Run(() => SlowMath.SlowSquare04(int.Parse(textBox1.Text)));
+            Task<int> t2 = Task.Run(() => SlowMath.SlowSquare04(int.Parse(textBox2.Text)));
+            Task<int> t3 = Task.Run(() => SlowMath.SlowSquare04(int.Parse(textBox3.Text)));
+            
+            t1.ContinueWith(tres => label1.Text = tres.Result.ToString(), TaskScheduler.FromCurrentSynchronizationContext()); 
+            t2.ContinueWith(tres => label2.Text = tres.Result.ToString(), TaskScheduler.FromCurrentSynchronizationContext());
+            t3.ContinueWith(tres => label3.Text = tres.Result.ToString(), TaskScheduler.FromCurrentSynchronizationContext());
+
+            Task.WhenAll(t1, t2, t3).ContinueWith(tres => label4.Text = tres.Result.Sum().ToString(), TaskScheduler.FromCurrentSynchronizationContext());
+        }
     }
 }

@@ -33,6 +33,23 @@ namespace SlowLibrary {
             Console.WriteLine(n * n);
         }
 
+        public int Sum { get; private set; }
+        public object lockOnSum = new object();
+        public void SlowSquare03WithSumUpdate(int n)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            while (stopwatch.ElapsedMilliseconds < (n * 1000))
+            {
+            }
+            int result = n * n;
+            Console.WriteLine($"The square is {result}");
+            lock (lockOnSum) {
+                Sum += result;
+                Console.WriteLine($"The sum is now {Sum}");
+            }
+        }
+
         public static int SlowSquare04(int n) {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
