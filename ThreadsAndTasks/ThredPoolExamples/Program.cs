@@ -174,7 +174,7 @@ namespace ThredPoolExamples
             
             void doYourThing(object o){
                 Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} got {o}");
-            };
+            }
 
             for (int i = 0; i < 26; i++) {
                 ThreadPool.QueueUserWorkItem(doYourThing, (char)(i+65));

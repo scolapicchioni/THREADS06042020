@@ -355,7 +355,6 @@ namespace P06_Tasks
             //until the value is available.
             Console.WriteLine(taskA.Result);
 
-
             Task<string> taskB = Task.Factory.StartNew((bla) => "hi!", "haaaa");
         }
 
@@ -363,9 +362,6 @@ namespace P06_Tasks
             //You can also use the Task.Factory.StartNew method 
             //to create and start a task in one operation.
             Task taskA = Task.Factory.StartNew(() => Console.WriteLine($"Hello from the task - ThreadId: {Thread.CurrentThread.ManagedThreadId}"));
-
-            
-
         }
         static void Ex02() {
             //You can also use the Task.Run methods 

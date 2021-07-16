@@ -13,7 +13,7 @@ namespace P04_PLINQ
             //http://www.albahari.com/threading/part5.aspx#_PLINQ
             //https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/parallel-linq-plinq
 
-            Ex01();
+            Ex08();
             Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();
         }
@@ -44,7 +44,7 @@ namespace P04_PLINQ
                             .Range(1, 10000000)
                             .AsParallel()
                             .WithCancellation(cts.Token)
-                            .Where(num=> num % 3 == 0)
+                            .Where(num => num % 3 == 0)
                             .OrderByDescending(num => num)
                             .Select(print)
                             .ToArray();
@@ -241,7 +241,7 @@ namespace P04_PLINQ
             var listOfNumbers = Enumerable.Range(0, 1000);
             var query = listOfNumbers
                         .AsParallel() //returns a parallel enumerable
-                        .WithMergeOptions(ParallelMergeOptions.FullyBuffered)
+                        .WithMergeOptions(ParallelMergeOptions.NotBuffered)
                         .Select(print);
             foreach (var item in query) {
                 Console.WriteLine($"\tforeach - Item:{item} - ThreadId {Thread.CurrentThread.ManagedThreadId} - TaskId: {Task.CurrentId}");
@@ -283,7 +283,10 @@ namespace P04_PLINQ
             };
 
             var listOfNumbers = Enumerable.Range(0, 100);
-            ParallelQuery<int> query = listOfNumbers
+            //ParallelQuery<int> query = listOfNumbers
+            //            .AsParallel() //returns a parallel enumerable
+            //            .Select(print);
+            var query = listOfNumbers
                         .AsParallel() //returns a parallel enumerable
                         .Select(print);
             //we're back to Thread Id 1
