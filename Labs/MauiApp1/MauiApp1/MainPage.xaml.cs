@@ -229,7 +229,7 @@ public partial class MainPage : ContentPage
     }
 
     /// <summary>
-    /// Invoke SlowMethod4 by running 3 parallel Tasks,
+    /// Invoke SlowMethod4 by creating 3 parallel Tasks and Starting them,
     /// passing the values of the 3 Entry.
     /// Write the results on the 3 Labels.
     /// Use a SynchronizationContext to get back to 
@@ -238,7 +238,45 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
-    private void btnTasks_Click(object sender, EventArgs e) {
+    private void btnNewTask_Clicked(object sender, EventArgs e) {
+        SynchronizationContext contextOfMainThread = SynchronizationContext.Current;
+        SlowClass sc = new SlowClass();
+        int sum = 0;
+        int[] numbers = { int.Parse(txtNumber01.Text), int.Parse(txtNumber02.Text), int.Parse(txtNumber03.Text) };
+        Task[] tasks = new Task[3];
+        Label[] labels = { lblResult01, lblResult02, lblResult03 };
+
+        foreach (Label label in labels) {
+            label.Text = string.Empty;
+        }
+        lblSum.Text = string.Empty;
+
+        new Task(() => {
+            for (int i = 0; i < numbers.Length; i++) {
+                int index = i;
+                tasks[i] = new Task(() => {
+                    int result = sc.SlowMethod04(numbers[index]);
+                    Interlocked.Add(ref sum, result);
+                    contextOfMainThread.Post(_ => labels[index].Text = result.ToString(), null);
+                });
+                tasks[i].Start();
+            }
+            Task.WaitAll(tasks);
+            contextOfMainThread.Post(_ => lblSum.Text = sum.ToString(), null);
+        }).Start();
+    }
+
+    /// <summary>
+    /// Invoke SlowMethod4 by Running 3 parallel Tasks,
+    /// passing the values of the 3 Entry.
+    /// Write the results on the 3 Labels.
+    /// Use a SynchronizationContext to get back to 
+    /// the Thread that owns your labels.
+    /// Use a WaitAll to wait for the sum and update labelSum with the result.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void btnTaskRun_Clicked(object sender, EventArgs e) {
         SynchronizationContext contextOfMainThread = SynchronizationContext.Current;
         SlowClass sc = new SlowClass();
         int sum = 0;
@@ -388,9 +426,6 @@ public partial class MainPage : ContentPage
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private async void btnTaskFromResult_Click(object sender, EventArgs e) {
-        async void continueWith(Task<int> t, Label label) {
-            label.Text = (await t).ToString();
-        }
         int[] numbers = { int.Parse(txtNumber01.Text), int.Parse(txtNumber02.Text), int.Parse(txtNumber03.Text) };
         Task<int>[] tasks = new Task<int>[3];
         Label[] labels = { lblResult01, lblResult02, lblResult03 };
@@ -403,11 +438,10 @@ public partial class MainPage : ContentPage
 
         for (int i = 0; i < numbers.Length; i++) {
             tasks[i] = SlowLibraryCacheService.GetSlowSquare(numbers[i]);
-            continueWith(tasks[i], labels[i]);
+            AwaiterMethod(tasks[i], labels[i]);
         }
         int[] results = await Task.WhenAll(tasks);
         lblSum.Text = results.Sum().ToString();
-
     }
 
     /// <summary>
@@ -432,16 +466,16 @@ public partial class MainPage : ContentPage
         lblSum.Text = string.Empty;
 
         List<Task<int>> tasks = new();
-        List<Task<int>> tasklist = new();
+        Dictionary<Task<int>, Label> taskDictionary = new();
         for (int i = 0; i < numbers.Length; i++) {
             int index = i;
             tasks.Add(Task.Run(() => slowClass.SlowMethod04(numbers[index])));
-            tasklist.Add(tasks[index]);
+            taskDictionary.Add(tasks[index], labels[index]);
         }
-        while (tasklist.Any()) {
-            Task<int> t = await Task.WhenAny(tasklist);
-            labels[tasks.IndexOf(t)].Text = (await t).ToString();
-            tasklist.Remove(t);
+        while (taskDictionary.Any()) {
+            Task<int> t = await Task.WhenAny(taskDictionary.Select(td=>td.Key));
+            taskDictionary[t].Text = (await t).ToString();
+            taskDictionary.Remove(t);
         }
 
         int[] result = await Task.WhenAll(tasks);
@@ -451,10 +485,11 @@ public partial class MainPage : ContentPage
     /// <summary>
     /// Invoke SlowMethod4 by running 3 parallel Tasks,
     /// passing the values of the 3 Entry.
-    /// Store the 3 tasks in a collection, pass the collection to the Interleaved method if the TasksUtilities class.
-    /// await on each of the tasks resulting from the Interleaved method, 
-    /// update the corresponding label with the result and remove the completed task from the collection.
+    /// Store the 3 tasks in a collection, pass the collection to the Interleaved method in the TasksUtilities class.
+    /// await on each of the tasks resulting from the Interleaved method
+    /// and update the corresponding label with the result.
     /// Use a WhenAll to await for the sum and update labelSum with the result 
+    /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
     private async void btnInterleaved_Click(object sender, EventArgs e) {
@@ -477,6 +512,42 @@ public partial class MainPage : ContentPage
         var tasksInCorrectOrder = new TasksUtilities().Interleaved(tasks);
         foreach (var item in tasksInCorrectOrder) {
             var r = await await item;
+            r.label.Text = r.number.ToString();
+        }
+
+        (int number, Label label)[] result = await Task.WhenAll(tasks);
+        lblSum.Text = result.Select(t => t.number).Sum().ToString();
+    }
+
+    /// <summary>
+    /// Invoke SlowMethod4 by running 3 parallel Tasks,
+    /// passing the values of the 3 Entry.
+    /// Store the 3 tasks in a collection, pass the collection to the InterleavedStream method in the TasksUtilities class.
+    /// await on each of the tasks resulting from the InterleavedStream method, 
+    /// and update the corresponding label with the result.
+    /// Use a WhenAll to await for the sum and update labelSum with the result 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private async void btnInterleavedStream_Clicked(object sender, EventArgs e) {
+        SlowClass slowClass = new SlowClass();
+        int[] numbers = { int.Parse(txtNumber01.Text), int.Parse(txtNumber02.Text), int.Parse(txtNumber03.Text) };
+        Label[] labels = { lblResult01, lblResult02, lblResult03 };
+
+        foreach (Label label in labels) {
+            label.Text = string.Empty;
+        }
+
+        lblSum.Text = string.Empty;
+
+        Task<(int number, Label label)>[] tasks = new Task<(int number, Label label)>[3];
+        for (int i = 0; i < numbers.Length; i++) {
+            int index = i;
+            tasks[i] = Task.Run(() => (number: slowClass.SlowMethod04(numbers[index]), label: labels[index]));
+        }
+
+        await foreach (Task<(int number, Label label)> item in new TasksUtilities().InterleavedStream(tasks)) {
+            (int number, Label label) r = await item;
             r.label.Text = r.number.ToString();
         }
 

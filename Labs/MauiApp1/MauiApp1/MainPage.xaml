@@ -21,6 +21,9 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -134,13 +137,22 @@
             Grid.Row="10"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            x:Name="btnTasks"
-            Text="Tasks"
-            Clicked="btnTasks_Click"
+            x:Name="btnNewTask"
+            Text="New Task Start"
+            Clicked="btnNewTask_Clicked"
+            HorizontalOptions="FillAndExpand" />
+        
+        <Button
+            Grid.Row="11"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTaskRun"
+            Text="Task Run"
+            Clicked="btnTaskRun_Clicked"
             HorizontalOptions="FillAndExpand" />
 
         <Button
-            Grid.Row="11"
+            Grid.Row="12"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnTasksContinueWith"
@@ -149,7 +161,7 @@
             HorizontalOptions="FillAndExpand" />
 
         <Button
-            Grid.Row="12"
+            Grid.Row="13"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnTasksFromSynchronizationContext"
@@ -158,7 +170,7 @@
             HorizontalOptions="FillAndExpand" />
 
         <Button
-            Grid.Row="13"
+            Grid.Row="14"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnTasksAwait"
@@ -168,16 +180,16 @@
         
 
         <Button
-            Grid.Row="14"
+            Grid.Row="15"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnTaskFromResult"
-            Text="Tasks.FromResult"
+            Text="Task.FromResult"
             Clicked="btnTaskFromResult_Click"
             HorizontalOptions="FillAndExpand" />
 
         <Button
-            Grid.Row="15"
+            Grid.Row="16"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnAwaitWhenAny"
@@ -186,12 +198,21 @@
             HorizontalOptions="FillAndExpand" />
 
         <Button
-            Grid.Row="16"
+            Grid.Row="17"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             x:Name="btnInterleaved"
             Text="await Interleaved"
             Clicked="btnInterleaved_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="18"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnInterleavedStream"
+            Text="IAsyncEnumerable and await foreach"
+            Clicked="btnInterleavedStream_Clicked"
             HorizontalOptions="FillAndExpand" />
     </Grid>
 </ContentPage>
