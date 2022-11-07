@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29613.14
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31710.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_Threads", "P01_Threads\P01_Threads.csproj", "{D4E8157B-F1E5-4564-BE5E-78CBD3E85073}"
 EndProject
@@ -22,8 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P08_WPFApplicationWithTasks", "P08_WPFApplicationWithTasks\P08_WPFApplicationWithTasks.csproj", "{3067FB15-A27D-4F37-87A4-4EB7D058DD73}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P09_TaskSynchronization", "P09_TaskSynchronization\P09_TaskSynchronization.csproj", "{55A205D5-E396-4531-A807-4501CD84810C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{A322B4A7-BE5E-43B8-BFFF-6651B5A7D9F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,10 +69,6 @@ Global
 		{55A205D5-E396-4531-A807-4501CD84810C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55A205D5-E396-4531-A807-4501CD84810C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55A205D5-E396-4531-A807-4501CD84810C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A322B4A7-BE5E-43B8-BFFF-6651B5A7D9F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A322B4A7-BE5E-43B8-BFFF-6651B5A7D9F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A322B4A7-BE5E-43B8-BFFF-6651B5A7D9F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A322B4A7-BE5E-43B8-BFFF-6651B5A7D9F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

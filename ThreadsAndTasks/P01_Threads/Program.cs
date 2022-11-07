@@ -689,7 +689,7 @@ namespace P01_Threads
                 for (int i = 0; i < 100; i++) {
                     Thread.Sleep(10);
                     sharedVariable = sharedVariable + 1;
-                    Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} - sharedVariable == {sharedVariable}");
+                    Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} - sharedVariable == {sharedVariable}");
                 }
             };
 
@@ -705,7 +705,7 @@ namespace P01_Threads
 
             void print() {
                 for (int i = 0; i < 5; i++) {
-                    Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} - i == {i}");
+                    Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} - i == {i}");
                 }
             };
 
@@ -727,7 +727,7 @@ namespace P01_Threads
 
             void callback (IAsyncResult asyncresult) {
                 int result = calculate.EndInvoke(asyncresult);
-                Console.WriteLine($"{Thread.CurrentThread.ManagedThreadId} has the result: {result}");
+                Console.WriteLine($"{Environment.CurrentManagedThreadId} has the result: {result}");
             }
 
             calculate.BeginInvoke("supercalifragilisticexpialidocious", callback, null);
@@ -786,7 +786,7 @@ namespace P01_Threads
 
             void go() {
                 for (int i = 0; i < 10000; i++) {
-                    Console.WriteLine($"Thread {Thread.CurrentThread.ManagedThreadId} running  as a {(Thread.CurrentThread.IsBackground ? "background" : "foreground")} thread. (if you press enter, the application {(Thread.CurrentThread.IsBackground ? "exits" : "does not exit")} before this ends)");
+                    Console.WriteLine($"Thread {Environment.CurrentManagedThreadId} running  as a {(Thread.CurrentThread.IsBackground ? "background" : "foreground")} thread. (if you press enter, the application {(Thread.CurrentThread.IsBackground ? "exits" : "does not exit")} before this ends)");
                 }
             };
             
@@ -809,7 +809,7 @@ namespace P01_Threads
             };
 
             int method01(int a, int b) {
-                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine(Environment.CurrentManagedThreadId);
                 return a + b;
             }
 
@@ -819,7 +819,7 @@ namespace P01_Threads
 
             int result = 0;
             Thread t = new Thread(() => {
-                Console.WriteLine(Thread.CurrentThread.ManagedThreadId);
+                Console.WriteLine(Environment.CurrentManagedThreadId);
                 result = method01(3, 4);
             });
             t.Start();
@@ -841,15 +841,18 @@ namespace P01_Threads
             //followed by 10000 o
             //printX();
             //for (int i = 0; i < 10_000; i++) {
-            //    Console.Write("o");
+            //    Console.Write("O");
             //}
 
             //non deterministic:
-            //x and o will mix in a random way
+            //x and O will mix in a random way
             new Thread(printX).Start();
             for (int i = 0; i < 10_000; i++) {
                 Console.Write("O");
             }
+
+            //now that you've seen how to start a Thread, it's time for your first lab:
+            // 1 - Create a 
             /*
              * xxxxxxxxxxxxxxxxxxxxxxxxxxOOOOOOOOOOOOOOOOOOOOOOxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
              * xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -916,7 +919,9 @@ namespace P01_Threads
         }
 
         static void Ex00() {
+            //There is always a Current Thread
             Console.WriteLine(Thread.CurrentThread.ManagedThreadId); //1
+            Console.WriteLine(Environment.CurrentManagedThreadId); //1
             Console.WriteLine(Thread.CurrentThread.IsBackground); //false
             Console.ReadLine();
         }

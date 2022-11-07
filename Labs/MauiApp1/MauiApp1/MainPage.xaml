@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Entry
+            x:Name="txtNumber01"
+            FontSize="18"
+            Text="4"
+            Grid.Row="0"
+            Grid.Column="0" />
+
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            x:Name="lblResult01"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Entry 
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="3"
+            x:Name="txtNumber02"
+            FontSize="18" />
+
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            x:Name="lblResult02"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Entry 
+            Grid.Row="2"
+            Grid.Column="0"
+            Text="5"
+            x:Name="txtNumber03"
+            FontSize="18" />
+
+        <Label
+            Grid.Row="2"
+            Grid.Column="1"
+            x:Name="lblResult03"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Label
+            Grid.Row="3"
+            Grid.Column="1"
+            x:Name="lblSum"
+            FontSize="18"
+            HorizontalOptions="Center" />
+
+        <Button
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnSingleThreaded"
+            Text="Single Thread"
+            Clicked="btnSingleThreaded_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="5"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnThreads"
+            Text="Threads"
+            Clicked="btnThreads_Click"
+            HorizontalOptions="FillAndExpand" />
+        
+        <Button
+            Grid.Row="6"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnCountdown"
+            Text="CountdownEvent"
+            Clicked="btnCountdown_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnParallelInvoke"
+            Text="Parallel.Invoke"
+            Clicked="btnParallelInvoke_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="8"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnParallelFor"
+            Text="Parallel.For"
+            Clicked="btnParallelFor_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="9"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnParallelForEach"
+            Text="Parallel.ForEach"
+            Clicked="btnParallelForEach_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="10"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTasks"
+            Text="Tasks"
+            Clicked="btnTasks_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="11"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTasksContinueWith"
+            Text="Tasks.ContinueWith"
+            Clicked="btnTasksContinueWith_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="12"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTasksFromSynchronizationContext"
+            Text="Tasks.FromSynchronizationContext"
+            Clicked="btnTasksFromSynchronizationContext_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="13"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTasksAwait"
+            Text="await"
+            Clicked="btnTasksAwait_Click"
+            HorizontalOptions="FillAndExpand" />
+        
+
+        <Button
+            Grid.Row="14"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnTaskFromResult"
+            Text="Tasks.FromResult"
+            Clicked="btnTaskFromResult_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="15"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnAwaitWhenAny"
+            Text="await When Any"
+            Clicked="btnAwaitWhenAny_Click"
+            HorizontalOptions="FillAndExpand" />
+
+        <Button
+            Grid.Row="16"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            x:Name="btnInterleaved"
+            Text="await Interleaved"
+            Clicked="btnInterleaved_Click"
+            HorizontalOptions="FillAndExpand" />
+    </Grid>
+</ContentPage>
